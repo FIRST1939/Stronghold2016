@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1939.robot.subsystems;
 
+import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.RobotMap;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByJoystick;
 
@@ -23,6 +24,14 @@ public class Drivetrain extends Subsystem {
 
 	public void drive(double move, double rotate) {
 		this.drive.arcadeDrive(move, rotate);
+	}
+
+	public double getGyro() {
+		return Robot.navx.getAngle();
+	}
+
+	public void resetGyro() {
+		Robot.navx.reset();
 	}
 
 }
