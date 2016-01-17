@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team1939.robot;
 
+import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -10,10 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
+	public static final Drivetrain drivetrain = new Drivetrain();
+
 	public static OI oi;
 
-	Command autonomousCommand;
-	SendableChooser chooser;
+	private Command autonomousCommand;
+	private SendableChooser chooser;
 
 	@Override
 	public void robotInit() {
