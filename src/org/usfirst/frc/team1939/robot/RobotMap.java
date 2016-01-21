@@ -8,6 +8,9 @@ public class RobotMap {
 	public static final int talonFrontRight = 12;
 	public static final int talonBackRight = 13;
 
+	public static final int talonArmRoller = 14;
+	public static final int talonArmMover = 15;
+
 	// DIO
 
 	// Analog
