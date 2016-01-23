@@ -20,6 +20,7 @@ public class Arm extends Subsystem {
 
 	public Arm() {
 		this.roller.changeControlMode(TalonControlMode.PercentVbus);
+		this.mover.setPID(P, I, D);
 		enablePositionMode();
 	}
 
@@ -38,14 +39,10 @@ public class Arm extends Subsystem {
 
 	public void enableThrottleMode() {
 		this.mover.changeControlMode(TalonControlMode.PercentVbus);
-		this.mover.set(0);
-		this.mover.setPID(0, 0, 0);
 	}
 
 	public void enablePositionMode() {
 		this.mover.changeControlMode(TalonControlMode.Position);
-		this.mover.set(0);
-		this.mover.setPID(P, I, D);
 	}
 
 	public void enableControl() {

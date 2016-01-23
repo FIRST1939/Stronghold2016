@@ -8,12 +8,11 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
-	private static final double RAMPING = 4.0;
+	private static final double RAMPING = 36.0;
 	private static final double INCHES_PER_REVOLUTION = 8 * Math.PI;
 	private static final int PULSES_PER_REVOLUTION = 256 * 4;
 
@@ -29,25 +28,31 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive drive = new RobotDrive(this.frontLeft, this.frontRight);
 
 	public Drivetrain() {
+		this.frontLeft.enableBrakeMode(true);
+		this.backLeft.enableBrakeMode(true);
+		this.frontRight.enableBrakeMode(true);
+		this.backRight.enableBrakeMode(true);
+
 		this.frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		this.frontRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 
 		this.backLeft.changeControlMode(TalonControlMode.Follower);
 		this.backLeft.set(RobotMap.talonFrontLeft);
 		this.backRight.changeControlMode(TalonControlMode.Follower);
-		this.backRight.set(RobotMap.talonBackRight);
+		this.backRight.set(RobotMap.talonFrontRight);
 
 		this.frontLeft.setVoltageRampRate(RAMPING);
 		this.backLeft.setVoltageRampRate(RAMPING);
 		this.frontRight.setVoltageRampRate(RAMPING);
 		this.backRight.setVoltageRampRate(RAMPING);
 
-		this.drive.setInvertedMotor(MotorType.kFrontRight, true);
-		this.drive.setInvertedMotor(MotorType.kRearRight, true);
 		this.drive.setSafetyEnabled(true);
 		this.drive.setExpiration(0.1);
 		this.drive.setSensitivity(0.5);
 		this.drive.setMaxOutput(1.0);
+
+		this.frontLeft.setPID(P, I, D);
+		this.frontRight.setPID(P, I, D);
 	}
 
 	@Override
@@ -69,20 +74,12 @@ public class Drivetrain extends Subsystem {
 
 	public void enableThrottleMode() {
 		this.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
-		this.frontLeft.set(0);
-		this.frontLeft.setPID(0, 0, 0);
 		this.frontRight.changeControlMode(TalonControlMode.PercentVbus);
-		this.frontRight.set(0);
-		this.frontRight.setPID(0, 0, 0);
 	}
 
 	public void enablePositionMode() {
 		this.frontLeft.changeControlMode(TalonControlMode.Position);
-		this.frontLeft.set(0);
-		this.frontLeft.setPID(P, I, D);
 		this.frontRight.changeControlMode(TalonControlMode.Position);
-		this.frontRight.set(0);
-		this.frontRight.setPID(P, I, D);
 	}
 
 	public void enableControl() {
@@ -101,7 +98,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public double getSpeed() {
-		return (this.frontLeft.getSpeed() + this.frontRight.getSpeed()) / 2;
+		return (this.frontLeft.getSpeed() + this.frontRight.getSpeed()) / 2.0;
 	}
 
 	public double getPositon() {

@@ -3,11 +3,12 @@ package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetGyro;
+import org.usfirst.frc.team1939.robot.subsystems.Arm;
+import org.usfirst.frc.team1939.robot.subsystems.Camera;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,12 +19,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	public static final Drivetrain drivetrain = new Drivetrain();
+	public static Drivetrain drivetrain = new Drivetrain();
+	public static Arm arm = new Arm();
+	public static Camera camera = new Camera();
 
 	public static Robot robot;
 	public static OI oi;
 	public static AHRS navx;
-	public static CameraServer cameraServer;
 
 	private Command autonomousCommand;
 	private SendableChooser autonomousChooser;
@@ -39,16 +41,6 @@ public class Robot extends IterativeRobot {
 			navx = new AHRS(SerialPort.Port.kMXP);
 		} catch (Exception e) {
 			System.out.println("ERROR: Couldn't intialize navX");
-			e.printStackTrace();
-		}
-
-		System.out.println("Intialzing Camera");
-		try {
-			cameraServer = CameraServer.getInstance();
-			cameraServer.setQuality(50);
-			cameraServer.startAutomaticCapture("cam0");
-		} catch (Exception e) {
-			System.out.println("ERROR: Couldn't intialize camera");
 			e.printStackTrace();
 		}
 

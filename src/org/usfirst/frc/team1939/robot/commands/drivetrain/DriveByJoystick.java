@@ -12,14 +12,20 @@ public class DriveByJoystick extends Command {
 
 	@Override
 	protected void initialize() {
-
+		Robot.drivetrain.enableThrottleMode();
 	}
 
 	@Override
 	protected void execute() {
 		double move = Robot.oi.leftStick.getY();
 		double rotate = Robot.oi.rightStick.getX();
-		Robot.drivetrain.drive(move, rotate);
+		if (Robot.oi.rightStick.getRawButton(1)) {
+			// Turbo
+			Robot.drivetrain.drive(move, rotate * 0.5);
+		} else {
+			// Normal
+			Robot.drivetrain.drive(move * 0.6, rotate * 0.5);
+		}
 	}
 
 	@Override
