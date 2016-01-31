@@ -18,9 +18,7 @@ public class DriveByInches extends Command {
 	@Override
 	protected void initialize() {
 		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 100);
-		Robot.drivetrain.enablePositionMode();
 		Robot.drivetrain.setPosition(this.inches);
-		Robot.drivetrain.enableControl();
 	}
 
 	@Override
@@ -35,13 +33,11 @@ public class DriveByInches extends Command {
 
 	@Override
 	protected void end() {
-		Robot.drivetrain.disableControl();
-		Robot.drivetrain.enableThrottleMode();
+		Robot.drivetrain.disable();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.drivetrain.disableControl();
-		Robot.drivetrain.enableThrottleMode();
+		Robot.drivetrain.disable();
 	}
 }

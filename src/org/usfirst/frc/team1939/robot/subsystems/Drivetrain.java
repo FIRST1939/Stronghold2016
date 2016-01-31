@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
 
-	private static final double RAMPING = 36.0;
+	private static final double rampRate = 36.0;
 	private static final double INCHES_PER_REVOLUTION = 8 * Math.PI;
 	private static final int PULSES_PER_REVOLUTION = 256 * 4;
 
@@ -41,10 +41,10 @@ public class Drivetrain extends Subsystem {
 		this.backRight.changeControlMode(TalonControlMode.Follower);
 		this.backRight.set(RobotMap.talonFrontRight);
 
-		this.frontLeft.setVoltageRampRate(RAMPING);
-		this.backLeft.setVoltageRampRate(RAMPING);
-		this.frontRight.setVoltageRampRate(RAMPING);
-		this.backRight.setVoltageRampRate(RAMPING);
+		this.frontLeft.setVoltageRampRate(rampRate);
+		this.backLeft.setVoltageRampRate(rampRate);
+		this.frontRight.setVoltageRampRate(rampRate);
+		this.backRight.setVoltageRampRate(rampRate);
 
 		this.drive.setSafetyEnabled(true);
 		this.drive.setExpiration(0.1);
@@ -61,40 +61,37 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void drive(double move, double rotate) {
+		this.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
+		this.frontRight.changeControlMode(TalonControlMode.PercentVbus);
+
 		this.drive.arcadeDrive(move, rotate);
+
+		this.frontLeft.enable();
+		this.frontRight.enable();
 	}
 
-	public double getGyro() {
+	public void setPosition(double inches) {
+		this.frontLeft.changeControlMode(TalonControlMode.Position);
+		this.frontRight.changeControlMode(TalonControlMode.Position);
+
+		this.frontLeft.set(inchesToTicks(inches));
+		this.frontRight.set(inchesToTicks(inches));
+
+		this.frontLeft.enable();
+		this.frontRight.enable();
+	}
+
+	public void disable() {
+		this.frontLeft.disable();
+		this.frontRight.enable();
+	}
+
+	public double getAngle() {
 		return Robot.navx.getAngle();
 	}
 
 	public void resetGyro() {
 		Robot.navx.reset();
-	}
-
-	public void enableThrottleMode() {
-		this.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
-		this.frontRight.changeControlMode(TalonControlMode.PercentVbus);
-	}
-
-	public void enablePositionMode() {
-		this.frontLeft.changeControlMode(TalonControlMode.Position);
-		this.frontRight.changeControlMode(TalonControlMode.Position);
-	}
-
-	public void enableControl() {
-		this.frontLeft.enableControl();
-		this.frontRight.enableControl();
-	}
-
-	public void disableControl() {
-		this.frontLeft.disableControl();
-		this.frontRight.disableControl();
-	}
-
-	public void setPosition(double inches) {
-		this.frontLeft.set(inchesToTicks(inches));
-		this.frontRight.set(inchesToTicks(inches));
 	}
 
 	public double getSpeed() {

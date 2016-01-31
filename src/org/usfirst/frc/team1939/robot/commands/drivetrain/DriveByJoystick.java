@@ -12,7 +12,7 @@ public class DriveByJoystick extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.enableThrottleMode();
+
 	}
 
 	@Override
@@ -35,11 +35,11 @@ public class DriveByJoystick extends Command {
 
 	@Override
 	protected void end() {
-		Robot.drivetrain.drive(0, 0);
+		Robot.drivetrain.disable();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.drivetrain.drive(0, 0);
+		Robot.drivetrain.disable();
 	}
 }
