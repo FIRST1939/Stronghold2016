@@ -9,10 +9,7 @@ import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerGrabber;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerLifter;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -29,7 +26,6 @@ public class Robot extends IterativeRobot {
 
 	public static Robot robot;
 	public static OI oi;
-	public static AHRS navx;
 
 	private Command autonomousCommand;
 	private SendableChooser autonomousChooser;
@@ -39,14 +35,6 @@ public class Robot extends IterativeRobot {
 		System.out.println("/n==========Intializing Stronghold2016==========");
 		robot = this;
 		oi = new OI();
-
-		System.out.println("Intializing navX");
-		try {
-			navx = new AHRS(SerialPort.Port.kMXP);
-		} catch (Exception e) {
-			System.out.println("ERROR: Couldn't intialize navX");
-			e.printStackTrace();
-		}
 
 		System.out.println("Intializing Smartdashboard");
 		Command[] commands = { new ResetGyro() };

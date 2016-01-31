@@ -1,13 +1,15 @@
 package org.usfirst.frc.team1939.robot.subsystems;
 
-import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.RobotMap;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByJoystick;
+
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
@@ -26,6 +28,8 @@ public class Drivetrain extends Subsystem {
 	private CANTalon backRight = new CANTalon(RobotMap.talonBackRight);
 
 	private RobotDrive drive = new RobotDrive(this.frontLeft, this.frontRight);
+
+	private AHRS navx;
 
 	public Drivetrain() {
 		this.frontLeft.enableBrakeMode(true);
@@ -53,6 +57,13 @@ public class Drivetrain extends Subsystem {
 
 		this.frontLeft.setPID(P, I, D);
 		this.frontRight.setPID(P, I, D);
+
+		try {
+			this.navx = new AHRS(SerialPort.Port.kMXP);
+		} catch (Exception e) {
+			System.out.println("ERROR: Couldn't intialize navX");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -87,11 +98,11 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public double getAngle() {
-		return Robot.navx.getAngle();
+		return this.navx.getAngle();
 	}
 
 	public void resetGyro() {
-		Robot.navx.reset();
+		this.navx.reset();
 	}
 
 	public double getSpeed() {
