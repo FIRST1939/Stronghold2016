@@ -3,6 +3,7 @@ package org.usfirst.frc.team1939.robot.subsystems;
 import org.usfirst.frc.team1939.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,6 +21,7 @@ public class Arm extends Subsystem {
 
 	public Arm() {
 		this.roller.changeControlMode(TalonControlMode.PercentVbus);
+		this.mover.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		this.mover.setPID(P, I, D);
 		enablePositionMode();
 	}
@@ -31,6 +33,10 @@ public class Arm extends Subsystem {
 
 	public void spinRoller(double speed) {
 		this.roller.set(speed);
+	}
+
+	public void setMoverOutput(double speed) {
+		this.mover.set(speed);
 	}
 
 	public void setPosition(int position) {

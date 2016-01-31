@@ -6,6 +6,8 @@ import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetGyro;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Camera;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team1939.robot.subsystems.ScalerGrabber;
+import org.usfirst.frc.team1939.robot.subsystems.ScalerLifter;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -19,9 +21,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	public static Drivetrain drivetrain = new Drivetrain();
 	public static Arm arm = new Arm();
 	public static Camera camera = new Camera();
+	public static Drivetrain drivetrain = new Drivetrain();
+	public static ScalerGrabber grabber = new ScalerGrabber();
+	public static ScalerLifter lifter = new ScalerLifter();
 
 	public static Robot robot;
 	public static OI oi;
