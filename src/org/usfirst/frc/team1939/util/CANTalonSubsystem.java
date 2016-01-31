@@ -36,6 +36,10 @@ public abstract class CANTalonSubsystem extends Subsystem {
 		return this.talon.getSpeed();
 	}
 
+	public int getEncoder() {
+		return this.talon.getEncPosition();
+	}
+
 	public void resetEncoder() {
 		this.talon.setPosition(0);
 	}
