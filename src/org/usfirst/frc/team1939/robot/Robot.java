@@ -2,12 +2,12 @@
 package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
-import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetGyro;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Camera;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerGrabber;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerLifter;
+import org.usfirst.frc.team1939.robot.subsystems.SmartDashboardSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 	public static Drivetrain drivetrain = new Drivetrain();
 	public static ScalerGrabber grabber = new ScalerGrabber();
 	public static ScalerLifter lifter = new ScalerLifter();
+	public static SmartDashboardSubsystem dashboard = new SmartDashboardSubsystem();
 
 	public static Robot robot;
 	public static OI oi;
@@ -32,26 +33,19 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		System.out.println("/n==========Intializing Stronghold2016==========");
 		robot = this;
 		oi = new OI();
 
-		System.out.println("Intializing Smartdashboard");
-		Command[] commands = { new ResetGyro() };
-		for (Command c : commands) {
-			SmartDashboard.putData(c);
-		}
-
-		System.out.println("Intializing Autonomous Commands");
 		this.autonomousChooser = new SendableChooser();
 		Command[] autonomous = {};
 		for (Command c : autonomous) {
 			this.autonomousChooser.addObject(c.getName(), c);
 		}
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
+
 		SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);
 
-		System.out.println("==============Finished Intializing============\n");
+		System.out.println("\n==============Intialized Stronghold2016============\n");
 	}
 
 	@Override
