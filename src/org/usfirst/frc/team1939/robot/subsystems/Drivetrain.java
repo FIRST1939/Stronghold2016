@@ -105,6 +105,11 @@ public class Drivetrain extends Subsystem {
 		this.navx.reset();
 	}
 
+	public void resetEncoders() {
+		this.frontLeft.setPosition(0);
+		this.frontRight.setPosition(0);
+	}
+
 	public double getSpeed() {
 		return (this.frontLeft.getSpeed() + this.frontRight.getSpeed()) / 2.0;
 	}

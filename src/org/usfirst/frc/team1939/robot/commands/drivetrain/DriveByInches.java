@@ -18,6 +18,7 @@ public class DriveByInches extends Command {
 	@Override
 	protected void initialize() {
 		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 100);
+		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.setPosition(this.inches);
 	}
 
