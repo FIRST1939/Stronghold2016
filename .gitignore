@@ -1,1 +1,5 @@
 *.class
+build
+bin
+dist
+sysProps.xml
