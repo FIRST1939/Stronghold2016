@@ -19,18 +19,20 @@ public class CameraJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		double value = Robot.oi.gamepad.getLeftY();
-		if (Math.abs(value) < 0.3)
-			value = 0;
-		if (value < 0)
-			this.position += 0.006;
-		if (value > 0)
-			this.position -= 0.006;
-		if (this.position > 1)
-			this.position = 1;
-		if (this.position < 0)
-			this.position = 0;
-		Robot.camera.setPosition(this.position);
+		if (Robot.dashboard.gamepadControlMode.getSelected().equals("Camera")) {
+			double value = Robot.oi.gamepad.getLeftY();
+			if (Math.abs(value) < 0.3)
+				value = 0;
+			if (value < 0)
+				this.position += 0.006;
+			if (value > 0)
+				this.position -= 0.006;
+			if (this.position > 1)
+				this.position = 1;
+			if (this.position < 0)
+				this.position = 0;
+			Robot.camera.setPosition(this.position);
+		}
 	}
 
 	@Override

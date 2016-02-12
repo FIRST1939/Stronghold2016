@@ -19,13 +19,17 @@ public class DriveByJoystick extends Command {
 	protected void execute() {
 		double move = Robot.oi.leftStick.getY();
 		double rotate = Robot.oi.rightStick.getX();
-		if (Robot.oi.rightStick.getRawButton(1)) {
-			// Turbo
-			Robot.drivetrain.drive(move, rotate * 0.5);
-		} else {
-			// Normal
-			Robot.drivetrain.drive(move * 0.6, rotate * 0.5);
+
+		boolean moveTurbo = Robot.oi.leftStick.getRawButton(1);
+		boolean rotateTurbo = Robot.oi.rightStick.getRawButton(1);
+
+		if (!moveTurbo) {
+			move *= 0.6;
 		}
+		if (!rotateTurbo) {
+			rotate *= 0.5;
+		}
+		Robot.drivetrain.drive(move, rotate);
 	}
 
 	@Override

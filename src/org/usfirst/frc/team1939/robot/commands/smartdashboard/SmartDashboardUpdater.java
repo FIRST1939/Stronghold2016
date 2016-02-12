@@ -25,6 +25,10 @@ public class SmartDashboardUpdater extends Command {
 		for (Command c : commands) {
 			SmartDashboard.putData(c);
 		}
+		Robot.dashboard.gamepadControlMode.addDefault("Lifter", "Lifter");
+		Robot.dashboard.gamepadControlMode.addObject("Grabber", "Grabber");
+		Robot.dashboard.gamepadControlMode.addObject("Arm", "Arm");
+		SmartDashboard.putData("Gamepad Control Mode", Robot.dashboard.gamepadControlMode);
 	}
 
 	@Override
@@ -34,6 +38,7 @@ public class SmartDashboardUpdater extends Command {
 		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
 		SmartDashboard.putNumber("Lifter Encoder", Robot.lifter.getEncoder());
 		SmartDashboard.putNumber("Grabber Encoder", Robot.grabber.getEncoder());
+		SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
 	}
 
 	@Override
