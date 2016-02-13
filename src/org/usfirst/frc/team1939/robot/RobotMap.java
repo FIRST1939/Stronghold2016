@@ -14,6 +14,7 @@ public class RobotMap {
 	public static final int talonArmRoller = 21;
 
 	// DIO
+	public static final int armBannerSensor = 0;
 
 	// Analog
 
