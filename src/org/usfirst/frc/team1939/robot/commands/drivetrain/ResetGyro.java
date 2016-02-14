@@ -12,7 +12,7 @@ public class ResetGyro extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.drivetrain.resetGyro();
+		Robot.drivetrain.navx.reset();
 	}
 
 	@Override

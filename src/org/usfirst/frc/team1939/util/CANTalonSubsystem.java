@@ -3,49 +3,58 @@ package org.usfirst.frc.team1939.util;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public abstract class CANTalonSubsystem extends Subsystem {
 
+	public PIDController pid;
 	private CANTalon talon;
 
-	public CANTalonSubsystem(CANTalon talon, double P, double I, double D, double rampRate, boolean invertEncoder) {
+	public CANTalonSubsystem(CANTalon talon, double P, double I, double D, double rampRate, double max,
+			boolean invertEncoder) {
 		this.talon = talon;
-		this.talon.setPID(P, I, D);
 		this.talon.setVoltageRampRate(rampRate);
-		this.talon.setCloseLoopRampRate(rampRate);
-		this.talon.reverseSensor(invertEncoder);
+		this.talon.changeControlMode(TalonControlMode.PercentVbus);
+		this.talon.setInverted(invertEncoder);
+
+		this.talon.setPIDSourceType(PIDSourceType.kDisplacement);
+		this.pid = new PIDController(P, I, D, talon, new PIDOutput() {
+			@Override
+			public void pidWrite(double arg0) {
+				// Do Nothing
+			}
+		});
+		this.pid.setOutputRange(-max, max);
 
 		this.talon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		this.talon.enableBrakeMode(true);
 	}
 
-	public void setOutput(double speed) {
-		this.talon.enable();
-		this.talon.changeControlMode(TalonControlMode.PercentVbus);
-		this.talon.set(speed);
+	public double getPIDOutput() {
+		return this.pid.get();
 	}
 
-	public void setPosition(int position) {
-		this.talon.enable();
-		this.talon.changeControlMode(TalonControlMode.Position);
-		this.talon.set(position);
+	public void setOutput(double speed) {
+		this.talon.set(speed);
 	}
 
 	public double getSpeed() {
 		return this.talon.getSpeed();
 	}
 
-	public int getEncoder() {
-		return this.talon.getEncPosition();
+	public double getTicks() {
+		return this.talon.getPosition();
 	}
 
 	public void resetEncoder() {
 		this.talon.setPosition(0);
 	}
 
-	public void disable() {
-		this.talon.disable();
+	public void setEncoderPosition(int position) {
+		this.talon.setEncPosition(position);
 	}
 
 }

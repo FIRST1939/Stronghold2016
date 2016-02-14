@@ -25,7 +25,8 @@ public class SmartDashboardUpdater extends Command {
 		for (Command c : commands) {
 			SmartDashboard.putData(c);
 		}
-		Robot.dashboard.gamepadControlMode.addDefault("Lifter", "Lifter");
+		Robot.dashboard.gamepadControlMode.addDefault("Neither", "Neither");
+		Robot.dashboard.gamepadControlMode.addObject("Lifter", "Lifter");
 		Robot.dashboard.gamepadControlMode.addObject("Grabber", "Grabber");
 		Robot.dashboard.gamepadControlMode.addObject("Arm", "Arm");
 		SmartDashboard.putData("Gamepad Control Mode", Robot.dashboard.gamepadControlMode);
@@ -33,11 +34,11 @@ public class SmartDashboardUpdater extends Command {
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("Gyro", Robot.drivetrain.getAngle());
-		SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPositon());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
-		SmartDashboard.putNumber("Lifter Encoder", Robot.lifter.getEncoder());
-		SmartDashboard.putNumber("Grabber Encoder", Robot.grabber.getEncoder());
+		SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.getYaw());
+		SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
+		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());
+		SmartDashboard.putNumber("Lifter Encoder", Robot.lifter.getTicks());
+		SmartDashboard.putNumber("Grabber Encoder", Robot.grabber.getTicks());
 		SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
 	}
 

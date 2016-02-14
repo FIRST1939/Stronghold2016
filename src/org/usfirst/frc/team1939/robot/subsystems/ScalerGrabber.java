@@ -15,9 +15,10 @@ public class ScalerGrabber extends CANTalonSubsystem {
 
 	public static final int UP = 0;
 	public static final int DOWN = 0;
+	public static final double MAX = 0.5;
 
 	public ScalerGrabber() {
-		super(new CANTalon(RobotMap.talonScalerGrabber), P, I, D, rampRate, false);
+		super(new CANTalon(RobotMap.talonScalerGrabber), P, I, D, rampRate, MAX, false);
 	}
 
 	@Override

@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
+import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByInches;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Camera;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
@@ -37,7 +38,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		this.autonomousChooser = new SendableChooser();
-		Command[] autonomous = {};
+		Command[] autonomous = { new DriveByInches(12) };
 		for (Command c : autonomous) {
 			this.autonomousChooser.addObject(c.getName(), c);
 		}

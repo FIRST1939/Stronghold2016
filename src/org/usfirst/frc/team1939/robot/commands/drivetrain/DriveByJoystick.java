@@ -39,11 +39,11 @@ public class DriveByJoystick extends Command {
 
 	@Override
 	protected void end() {
-		Robot.drivetrain.disable();
+		Robot.drivetrain.drive(0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.drivetrain.disable();
+		Robot.drivetrain.drive(0, 0);
 	}
 }

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1939.robot.subsystems;
 
+import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.RobotMap;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByJoystick;
 
@@ -8,6 +9,9 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,11 +20,7 @@ public class Drivetrain extends Subsystem {
 
 	private static final double rampRate = 36.0;
 	private static final double INCHES_PER_REVOLUTION = 8 * Math.PI;
-	private static final int PULSES_PER_REVOLUTION = 256 * 4;
-
-	private static final double P = 0.3;
-	private static final double I = 0;
-	private static final double D = 0;
+	private static final double PULSES_PER_REVOLUTION = 256 * 4 * (60.0 / 36.0);
 
 	private CANTalon frontLeft = new CANTalon(RobotMap.talonFrontLeft);
 	private CANTalon backLeft = new CANTalon(RobotMap.talonBackLeft);
@@ -29,7 +29,17 @@ public class Drivetrain extends Subsystem {
 
 	private RobotDrive drive = new RobotDrive(this.frontLeft, this.frontRight);
 
-	private AHRS navx;
+	public AHRS navx;
+
+	private static final double turnP = 0;
+	private static final double turnI = 0;
+	private static final double turnD = 0;
+	public PIDController turnPID;
+
+	private static final double moveP = -1.0 / inchesToTicks(24);
+	private static final double moveI = 0;
+	private static final double moveD = 0;
+	public PIDController movePID;
 
 	public Drivetrain() {
 		this.frontLeft.enableBrakeMode(true);
@@ -39,6 +49,9 @@ public class Drivetrain extends Subsystem {
 
 		this.frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		this.frontRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+
+		this.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
+		this.frontRight.changeControlMode(TalonControlMode.PercentVbus);
 
 		this.backLeft.changeControlMode(TalonControlMode.Follower);
 		this.backLeft.set(RobotMap.talonFrontLeft);
@@ -51,12 +64,29 @@ public class Drivetrain extends Subsystem {
 		this.backRight.setVoltageRampRate(rampRate);
 
 		this.drive.setSafetyEnabled(true);
-		this.drive.setExpiration(0.1);
+		this.drive.setExpiration(0.2);
 		this.drive.setSensitivity(0.5);
 		this.drive.setMaxOutput(1.0);
 
-		this.frontLeft.setPID(P, I, D);
-		this.frontRight.setPID(P, I, D);
+		Robot.drivetrain.navx.setPIDSourceType(PIDSourceType.kDisplacement);
+		this.turnPID = new PIDController(turnP, turnI, turnD, Robot.drivetrain.navx, new PIDOutput() {
+			@Override
+			public void pidWrite(double arg0) {
+				// Do Nothing
+			}
+		});
+		this.turnPID.setInputRange(0, 360);
+		this.turnPID.setContinuous(true);
+		this.turnPID.setOutputRange(-0.5, 0.5);
+
+		this.frontLeft.setPIDSourceType(PIDSourceType.kDisplacement);
+		this.movePID = new PIDController(moveP, moveI, moveD, this.frontLeft, new PIDOutput() {
+			@Override
+			public void pidWrite(double arg0) {
+				// Do Nothing
+			}
+		});
+		this.movePID.setOutputRange(-0.5, 0.5);
 
 		try {
 			this.navx = new AHRS(SerialPort.Port.kMXP);
@@ -72,57 +102,31 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void drive(double move, double rotate) {
-		this.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
-		this.frontRight.changeControlMode(TalonControlMode.PercentVbus);
-
 		this.drive.arcadeDrive(move, rotate);
-
-		this.frontLeft.enable();
-		this.frontRight.enable();
-	}
-
-	public void setPosition(double inches) {
-		this.frontLeft.changeControlMode(TalonControlMode.Position);
-		this.frontRight.changeControlMode(TalonControlMode.Position);
-
-		this.frontLeft.set(inchesToTicks(inches));
-		this.frontRight.set(inchesToTicks(inches));
-
-		this.frontLeft.enable();
-		this.frontRight.enable();
-	}
-
-	public void disable() {
-		this.frontLeft.disable();
-		this.frontRight.enable();
-	}
-
-	public double getAngle() {
-		return this.navx.getAngle();
-	}
-
-	public void resetGyro() {
-		this.navx.reset();
 	}
 
 	public void resetEncoders() {
-		this.frontLeft.setPosition(0);
-		this.frontRight.setPosition(0);
+		this.frontLeft.setEncPosition(0);
+		this.frontRight.setEncPosition(0);
 	}
 
 	public double getSpeed() {
 		return (this.frontLeft.getSpeed() + this.frontRight.getSpeed()) / 2.0;
 	}
 
-	public double getPositon() {
-		return (ticksToInches((int) this.frontLeft.get()) + ticksToInches((int) this.frontRight.get())) / 2;
+	public int getTicks() {
+		return (int) this.frontLeft.pidGet();
 	}
 
-	private static int inchesToTicks(double inches) {
+	public double getPosition() {
+		return ticksToInches(getTicks());
+	}
+
+	public static int inchesToTicks(double inches) {
 		return (int) (inches / INCHES_PER_REVOLUTION * PULSES_PER_REVOLUTION);
 	}
 
-	private static double ticksToInches(int ticks) {
+	public static double ticksToInches(int ticks) {
 		return ticks / PULSES_PER_REVOLUTION * INCHES_PER_REVOLUTION;
 	}
 

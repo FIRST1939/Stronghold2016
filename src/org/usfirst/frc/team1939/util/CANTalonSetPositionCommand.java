@@ -18,12 +18,14 @@ public class CANTalonSetPositionCommand extends Command {
 	@Override
 	protected void initialize() {
 		this.timer = new PIDTimer(() -> this.subsystem.getSpeed(), 0, 1, 100);
-		this.subsystem.setPosition(this.position);
+		this.subsystem.pid.setSetpoint(this.position);
+		this.subsystem.pid.enable();
 	}
 
 	@Override
 	protected void execute() {
 		this.timer.update();
+		this.subsystem.setOutput(this.subsystem.getPIDOutput());
 	}
 
 	@Override
@@ -33,12 +35,14 @@ public class CANTalonSetPositionCommand extends Command {
 
 	@Override
 	protected void end() {
-		this.subsystem.disable();
+		this.subsystem.setOutput(0);
+		this.subsystem.pid.disable();
 	}
 
 	@Override
 	protected void interrupted() {
-		this.subsystem.disable();
+		this.subsystem.setOutput(0);
+		this.subsystem.pid.disable();
 	}
 
 }
