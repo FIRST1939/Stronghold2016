@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.Relay.Value;
 public class Arm extends CANTalonSubsystem {
 
 	public static final int UP = 0;
-	public static final int DOWN = 160000;
+	public static final int DOWN = -180000;
 	public static final double MAX = 0.3;
 
-	private static final double P = 1.0 / DOWN;
+	private static final double P = 1.0 / (2 * DOWN);
 	private static final double I = 0;
 	private static final double D = 0;
 	private static final double rampRate = 12;
@@ -29,7 +29,7 @@ public class Arm extends CANTalonSubsystem {
 	private boolean magnetOn = false;
 
 	public Arm() {
-		super(new CANTalon(RobotMap.talonArmMover), P, I, D, rampRate, MAX, true);
+		super(new CANTalon(RobotMap.talonArmMover), P, I, D, rampRate, MAX);
 		setMagnet(false);
 	}
 
@@ -43,7 +43,7 @@ public class Arm extends CANTalonSubsystem {
 	}
 
 	public boolean hasBoulder() {
-		return !this.banner.get();
+		return this.banner.get();
 	}
 
 	public boolean isDown() {

@@ -28,7 +28,7 @@ public class ArmGamepadControl extends Command {
 		double moveSpeed = 0;
 		if (Robot.dashboard.gamepadControlMode.getSelected().equals("Arm")) {
 			// If in manual control, control with gamepad
-			moveSpeed = -Robot.oi.gamepad.getLeftY() * Arm.MAX;
+			moveSpeed = Robot.oi.gamepad.getLeftY() * Arm.MAX;
 		} else {
 			// Else setpoint off of gamepad buttons
 			boolean button = Robot.oi.gamepad.rightButton.get();

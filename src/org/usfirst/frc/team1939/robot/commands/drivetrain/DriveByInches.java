@@ -18,11 +18,11 @@ public class DriveByInches extends Command {
 
 	@Override
 	protected void initialize() {
-		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 100);
+		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 300);
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.navx.reset();
 
-		Robot.drivetrain.movePID.setSetpoint(Drivetrain.inchesToTicks(this.inches));
+		Robot.drivetrain.movePID.setSetpoint(-Drivetrain.inchesToTicks(this.inches));
 		Robot.drivetrain.turnPID.setSetpoint(0);
 
 		Robot.drivetrain.movePID.enable();

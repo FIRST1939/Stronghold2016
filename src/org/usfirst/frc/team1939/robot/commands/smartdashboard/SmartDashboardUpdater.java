@@ -34,12 +34,13 @@ public class SmartDashboardUpdater extends Command {
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.getYaw());
+		SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.pidGet());
 		SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
 		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());
 		SmartDashboard.putNumber("Lifter Encoder", Robot.lifter.getTicks());
 		SmartDashboard.putNumber("Grabber Encoder", Robot.grabber.getTicks());
 		SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
+		SmartDashboard.putBoolean("Magnet Engaged", Robot.arm.isMagnetOn());
 	}
 
 	@Override

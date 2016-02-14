@@ -18,7 +18,7 @@ public class ScalerGrabber extends CANTalonSubsystem {
 	public static final double MAX = 0.5;
 
 	public ScalerGrabber() {
-		super(new CANTalon(RobotMap.talonScalerGrabber), P, I, D, rampRate, MAX, false);
+		super(new CANTalon(RobotMap.talonScalerGrabber), P, I, D, rampRate, MAX);
 	}
 
 	@Override

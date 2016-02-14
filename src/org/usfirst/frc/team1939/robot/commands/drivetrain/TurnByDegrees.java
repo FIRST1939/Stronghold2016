@@ -13,18 +13,19 @@ public class TurnByDegrees extends Command {
 	public TurnByDegrees(double degrees) {
 		requires(Robot.drivetrain);
 		this.degrees = degrees;
-		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 300);
 	}
 
 	@Override
 	protected void initialize() {
-		this.timer.update();
+		Robot.drivetrain.navx.reset();
 		Robot.drivetrain.turnPID.setSetpoint(this.degrees);
 		Robot.drivetrain.turnPID.enable();
+		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 300);
 	}
 
 	@Override
 	protected void execute() {
+		this.timer.update();
 		Robot.drivetrain.drive(0, Robot.drivetrain.turnPID.get());
 	}
 

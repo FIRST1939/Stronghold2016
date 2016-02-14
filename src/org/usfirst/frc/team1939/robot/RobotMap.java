@@ -17,7 +17,7 @@ public class RobotMap {
 	public static final int armBannerSensor = 0;
 	public static final int armLimitSwitch = 1;
 
-	// PWM
+	// Relay
 	public static final int magnetRelay = 0;
 
 }

@@ -18,7 +18,7 @@ public class ScalerLifter extends CANTalonSubsystem {
 	public static final double MAX = 0.5;
 
 	public ScalerLifter() {
-		super(new CANTalon(RobotMap.talonScalerLifter), P, I, D, rampRate, MAX, false);
+		super(new CANTalon(RobotMap.talonScalerLifter), P, I, D, rampRate, MAX);
 	}
 
 	@Override

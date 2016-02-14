@@ -3,8 +3,8 @@ package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByInches;
+import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
-import org.usfirst.frc.team1939.robot.subsystems.Camera;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerGrabber;
 import org.usfirst.frc.team1939.robot.subsystems.ScalerLifter;
@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static Arm arm = new Arm();
-	public static Camera camera = new Camera();
 	public static Drivetrain drivetrain = new Drivetrain();
 	public static ScalerGrabber grabber = new ScalerGrabber();
 	public static ScalerLifter lifter = new ScalerLifter();
@@ -38,10 +37,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		this.autonomousChooser = new SendableChooser();
-		Command[] autonomous = { new DriveByInches(12) };
-		for (Command c : autonomous) {
-			this.autonomousChooser.addObject(c.getName(), c);
-		}
+		this.autonomousChooser.addObject("Drive 36", new DriveByInches(36));
+		this.autonomousChooser.addObject("Turn 90 Right", new TurnByDegrees(90));
+		this.autonomousChooser.addObject("Turn 90 Left", new TurnByDegrees(-90));
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
 
 		SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);

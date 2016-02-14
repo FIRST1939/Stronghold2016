@@ -28,6 +28,8 @@ public class DriveByJoystick extends Command {
 		}
 		if (!rotateTurbo) {
 			rotate *= 0.5;
+		} else {
+			rotate *= 0.8;
 		}
 		Robot.drivetrain.drive(move, rotate);
 	}

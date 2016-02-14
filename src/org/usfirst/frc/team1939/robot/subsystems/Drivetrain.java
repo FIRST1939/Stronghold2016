@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1939.robot.subsystems;
 
-import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.RobotMap;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByJoystick;
 
@@ -31,12 +30,12 @@ public class Drivetrain extends Subsystem {
 
 	public AHRS navx;
 
-	private static final double turnP = 0;
+	private static final double turnP = 1.0 / 20;
 	private static final double turnI = 0;
 	private static final double turnD = 0;
 	public PIDController turnPID;
 
-	private static final double moveP = -1.0 / inchesToTicks(24);
+	private static final double moveP = 1.0 / inchesToTicks(12);
 	private static final double moveI = 0;
 	private static final double moveD = 0;
 	public PIDController movePID;
@@ -68,16 +67,23 @@ public class Drivetrain extends Subsystem {
 		this.drive.setSensitivity(0.5);
 		this.drive.setMaxOutput(1.0);
 
-		Robot.drivetrain.navx.setPIDSourceType(PIDSourceType.kDisplacement);
-		this.turnPID = new PIDController(turnP, turnI, turnD, Robot.drivetrain.navx, new PIDOutput() {
+		try {
+			this.navx = new AHRS(SerialPort.Port.kMXP);
+		} catch (Exception e) {
+			System.out.println("ERROR: Couldn't intialize navX");
+			e.printStackTrace();
+		}
+
+		this.navx.setPIDSourceType(PIDSourceType.kDisplacement);
+		this.turnPID = new PIDController(turnP, turnI, turnD, this.navx, new PIDOutput() {
 			@Override
 			public void pidWrite(double arg0) {
 				// Do Nothing
 			}
 		});
-		this.turnPID.setInputRange(0, 360);
+		this.turnPID.setInputRange(-180, 180);
 		this.turnPID.setContinuous(true);
-		this.turnPID.setOutputRange(-0.5, 0.5);
+		this.turnPID.setOutputRange(-0.8, 0.8);
 
 		this.frontLeft.setPIDSourceType(PIDSourceType.kDisplacement);
 		this.movePID = new PIDController(moveP, moveI, moveD, this.frontLeft, new PIDOutput() {
@@ -87,13 +93,6 @@ public class Drivetrain extends Subsystem {
 			}
 		});
 		this.movePID.setOutputRange(-0.5, 0.5);
-
-		try {
-			this.navx = new AHRS(SerialPort.Port.kMXP);
-		} catch (Exception e) {
-			System.out.println("ERROR: Couldn't intialize navX");
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -106,8 +105,8 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void resetEncoders() {
-		this.frontLeft.setEncPosition(0);
-		this.frontRight.setEncPosition(0);
+		this.frontLeft.setPosition(0);
+		this.frontRight.setPosition(0);
 	}
 
 	public double getSpeed() {
