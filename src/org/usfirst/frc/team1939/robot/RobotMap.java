@@ -16,8 +16,12 @@ public class RobotMap {
 	// DIO
 	public static final int armBannerSensor = 0;
 	public static final int armLimitSwitch = 1;
+	public static final int ledsOne = 2;
+	public static final int ledsTwo = 3;
+	public static final int ledsThree = 4;
 
 	// Relay
 	public static final int magnetRelay = 0;
+	public static final int winchRelay = 1;
 
 }

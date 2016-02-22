@@ -92,7 +92,7 @@ public class Drivetrain extends Subsystem {
 				// Do Nothing
 			}
 		});
-		this.movePID.setOutputRange(-0.5, 0.5);
+		this.movePID.setOutputRange(-0.75, 0.75);
 	}
 
 	@Override

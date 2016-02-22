@@ -13,7 +13,7 @@ public class Arm extends CANTalonSubsystem {
 
 	public static final int UP = 0;
 	public static final int DOWN = -180000;
-	public static final double MAX = 0.3;
+	public static final double MAX = 0.5;
 
 	private static final double P = 1.0 / (2 * DOWN);
 	private static final double I = 0;

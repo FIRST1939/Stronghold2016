@@ -5,6 +5,8 @@ import org.usfirst.frc.team1939.robot.commands.scaler.ScalerGrabberGamepadContro
 import org.usfirst.frc.team1939.util.CANTalonSubsystem;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 
 public class ScalerGrabber extends CANTalonSubsystem {
 
@@ -17,6 +19,11 @@ public class ScalerGrabber extends CANTalonSubsystem {
 	public static final int DOWN = 0;
 	public static final double MAX = 0.5;
 
+	private Relay spike = new Relay(RobotMap.winchRelay);
+	private boolean spikeOn;
+	// On = Ratchet disengaged
+	// Off = Ratchet engaged
+
 	public ScalerGrabber() {
 		super(new CANTalon(RobotMap.talonScalerGrabber), P, I, D, rampRate, MAX);
 	}
@@ -24,6 +31,21 @@ public class ScalerGrabber extends CANTalonSubsystem {
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new ScalerGrabberGamepadControl());
+		setSpike(false);
+	}
+
+	public boolean isSpikeOn() {
+		return this.spikeOn;
+	}
+
+	public void setSpike(boolean on) {
+		if (on) {
+			this.spikeOn = true;
+			this.spike.set(Value.kForward);
+		} else {
+			this.spikeOn = false;
+			this.spike.set(Value.kOff);
+		}
 	}
 
 }

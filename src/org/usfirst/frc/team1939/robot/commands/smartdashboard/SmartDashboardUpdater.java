@@ -4,6 +4,8 @@ import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.commands.arm.ResetArmEncoder;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetDrivetrainEncoders;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetGyro;
+import org.usfirst.frc.team1939.robot.commands.scaler.DisengageRatchet;
+import org.usfirst.frc.team1939.robot.commands.scaler.EngageRatchet;
 import org.usfirst.frc.team1939.robot.commands.scaler.ResetGrabberEncoder;
 import org.usfirst.frc.team1939.robot.commands.scaler.ResetLifterEncoder;
 
@@ -21,7 +23,7 @@ public class SmartDashboardUpdater extends Command {
 	protected void initialize() {
 		SmartDashboard.putData(Scheduler.getInstance());
 		Command[] commands = { new ResetGyro(), new ResetDrivetrainEncoders(), new ResetArmEncoder(),
-				new ResetGrabberEncoder(), new ResetLifterEncoder() };
+				new ResetGrabberEncoder(), new ResetLifterEncoder(), new EngageRatchet(), new DisengageRatchet() };
 		for (Command c : commands) {
 			SmartDashboard.putData(c);
 		}
@@ -40,6 +42,7 @@ public class SmartDashboardUpdater extends Command {
 		SmartDashboard.putNumber("Lifter Encoder", Robot.lifter.getTicks());
 		SmartDashboard.putNumber("Grabber Encoder", Robot.grabber.getTicks());
 		SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
+		SmartDashboard.putBoolean("Arm Down", Robot.arm.isDown());
 		SmartDashboard.putBoolean("Magnet Engaged", Robot.arm.isMagnetOn());
 	}
 

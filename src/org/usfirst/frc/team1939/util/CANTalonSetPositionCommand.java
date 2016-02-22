@@ -17,7 +17,7 @@ public class CANTalonSetPositionCommand extends Command {
 
 	@Override
 	protected void initialize() {
-		this.timer = new PIDTimer(() -> this.subsystem.getSpeed(), 0, 1, 100);
+		this.timer = new PIDTimer(() -> this.subsystem.getSpeed(), 0, 1, 300);
 		this.subsystem.pid.setSetpoint(this.position);
 		this.subsystem.pid.enable();
 	}
