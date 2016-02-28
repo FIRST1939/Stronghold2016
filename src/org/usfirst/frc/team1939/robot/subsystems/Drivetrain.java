@@ -30,7 +30,7 @@ public class Drivetrain extends Subsystem {
 
 	public AHRS navx;
 
-	private static final double turnP = 1.0 / 20;
+	private static final double turnP = 1.0 / 15;
 	private static final double turnI = 0;
 	private static final double turnD = 0;
 	public PIDController turnPID;

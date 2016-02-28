@@ -6,10 +6,10 @@ import org.usfirst.frc.team1939.robot.commands.auton.LowBar;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByInches;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
+import org.usfirst.frc.team1939.robot.subsystems.Dart;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team1939.robot.subsystems.ScalerGrabber;
-import org.usfirst.frc.team1939.robot.subsystems.ScalerLifter;
 import org.usfirst.frc.team1939.robot.subsystems.SmartDashboardSubsystem;
+import org.usfirst.frc.team1939.robot.subsystems.Winch;
 import org.usfirst.frc.team1939.util.FlippedUSBCamera;
 import org.usfirst.frc.team1939.util.LEDs;
 
@@ -24,10 +24,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static Arm arm = new Arm();
+	public static Dart dart = new Dart();
 	public static Drivetrain drivetrain = new Drivetrain();
-	public static ScalerGrabber grabber = new ScalerGrabber();
-	public static ScalerLifter lifter = new ScalerLifter();
 	public static SmartDashboardSubsystem dashboard = new SmartDashboardSubsystem();
+	public static Winch winch = new Winch();
 
 	public static Robot robot;
 	public static OI oi;

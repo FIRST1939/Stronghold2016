@@ -1,10 +1,10 @@
-package org.usfirst.frc.team1939.robot.commands.scaler;
+package org.usfirst.frc.team1939.robot.commands.winch;
 
 import org.usfirst.frc.team1939.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DisengageRatchet extends Command {
+public class EngageRatchet extends Command {
 
 	@Override
 	protected void initialize() {
@@ -12,7 +12,7 @@ public class DisengageRatchet extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.grabber.setSpike(true);
+		Robot.winch.setSpike(false);
 	}
 
 	@Override
