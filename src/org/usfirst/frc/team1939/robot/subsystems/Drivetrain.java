@@ -35,6 +35,7 @@ public class Drivetrain extends Subsystem {
 	private static final double turnD = 0;
 	public PIDController turnPID;
 
+	public static final double MAX_MOVE_SPEED = 0.75;
 	private static final double moveP = 1.0 / inchesToTicks(12);
 	private static final double moveI = 0;
 	private static final double moveD = 0;
@@ -92,7 +93,7 @@ public class Drivetrain extends Subsystem {
 				// Do Nothing
 			}
 		});
-		this.movePID.setOutputRange(-0.75, 0.75);
+		this.movePID.setOutputRange(-MAX_MOVE_SPEED, MAX_MOVE_SPEED);
 	}
 
 	@Override

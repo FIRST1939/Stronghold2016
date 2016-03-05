@@ -9,15 +9,23 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveByInches extends Command {
 
 	private double inches;
+	private double speed;
 	private PIDTimer timer;
 
 	public DriveByInches(double inches) {
+		this(inches, Drivetrain.MAX_MOVE_SPEED);
+	}
+
+	public DriveByInches(double inches, double speed) {
 		requires(Robot.drivetrain);
 		this.inches = inches;
+		this.speed = Math.abs(speed);
 	}
 
 	@Override
 	protected void initialize() {
+		Robot.drivetrain.movePID.setOutputRange(-this.speed, this.speed);
+
 		this.timer = new PIDTimer(() -> Robot.drivetrain.getSpeed(), 0, 1, 300);
 		Robot.drivetrain.resetEncoders();
 		Robot.drivetrain.navx.reset();
@@ -45,6 +53,7 @@ public class DriveByInches extends Command {
 		Robot.drivetrain.drive(0, 0);
 		Robot.drivetrain.movePID.disable();
 		Robot.drivetrain.turnPID.disable();
+		Robot.drivetrain.movePID.setOutputRange(-Drivetrain.MAX_MOVE_SPEED, Drivetrain.MAX_MOVE_SPEED);
 	}
 
 	@Override
@@ -52,5 +61,6 @@ public class DriveByInches extends Command {
 		Robot.drivetrain.drive(0, 0);
 		Robot.drivetrain.movePID.disable();
 		Robot.drivetrain.turnPID.disable();
+		Robot.drivetrain.movePID.setOutputRange(-Drivetrain.MAX_MOVE_SPEED, Drivetrain.MAX_MOVE_SPEED);
 	}
 }
