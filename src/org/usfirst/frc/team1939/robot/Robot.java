@@ -10,10 +10,8 @@ import org.usfirst.frc.team1939.robot.subsystems.Dart;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1939.robot.subsystems.SmartDashboardSubsystem;
 import org.usfirst.frc.team1939.robot.subsystems.Winch;
-import org.usfirst.frc.team1939.util.FlippedUSBCamera;
 import org.usfirst.frc.team1939.util.LEDs;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -51,8 +49,6 @@ public class Robot extends IterativeRobot {
 
 		Thread leds = new Thread(new LEDs());
 		leds.start();
-
-		CameraServer.getInstance().startAutomaticCapture(new FlippedUSBCamera("cam0"));
 
 		System.out.println("\n==============Intialized Stronghold2016============\n");
 	}
