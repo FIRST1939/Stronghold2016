@@ -13,11 +13,11 @@ public class Arm extends CANTalonSubsystem {
 
 	public static final int UP = 0;
 	public static final int DOWN = -180000;
-	public static final double MAX = 0.5;
+	public static final double MAX = 0.70;
 
-	private static final double P = 1.0 / (2 * DOWN);
-	private static final double I = 0;
-	private static final double D = 0;
+	public static final double P = 1.0 / (3 * DOWN);
+	public static final double I = 0;
+	public static final double D = 0;
 	private static final double rampRate = 12;
 
 	private CANTalon roller = new CANTalon(RobotMap.talonArmRoller);

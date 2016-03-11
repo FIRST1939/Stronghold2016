@@ -32,19 +32,33 @@ public class SmartDashboardUpdater extends Command {
 		Robot.dashboard.gamepadControlMode.addObject("Winch", "Winch");
 		Robot.dashboard.gamepadControlMode.addObject("Arm", "Arm");
 		SmartDashboard.putData("Gamepad Control Mode", Robot.dashboard.gamepadControlMode);
+		SmartDashboard.putBoolean("Reset Everything", false);
 	}
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.pidGet());
-		SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());
-		SmartDashboard.putNumber("Dart Encoder", Robot.dart.getTicks());
-		SmartDashboard.putNumber("Winch Encoder", Robot.winch.getTicks());
-		SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
-		SmartDashboard.putBoolean("Arm Down", Robot.arm.isDown());
-		SmartDashboard.putBoolean("Magnet Engaged", Robot.arm.isMagnetOn());
-		SmartDashboard.putBoolean("Ratchet Relay", Robot.winch.isSpikeOn());
+		try {
+			SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.pidGet());
+			SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
+			SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());
+			SmartDashboard.putNumber("Dart Encoder", Robot.dart.getTicks());
+			SmartDashboard.putNumber("Winch Encoder", Robot.winch.getTicks());
+			SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
+			SmartDashboard.putBoolean("Arm Down", Robot.arm.isDown());
+			SmartDashboard.putBoolean("Magnet Engaged", Robot.arm.isMagnetOn());
+			SmartDashboard.putBoolean("Ratchet Relay", Robot.winch.isSpikeOn());
+
+			if (SmartDashboard.getBoolean("Reset Everything")) {
+				Robot.drivetrain.resetEncoders();
+				Robot.drivetrain.navx.reset();
+				Robot.arm.resetEncoder();
+				Robot.winch.resetEncoder();
+				Robot.dart.resetEncoder();
+				SmartDashboard.putBoolean("Reset Everything", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

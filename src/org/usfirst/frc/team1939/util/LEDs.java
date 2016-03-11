@@ -20,10 +20,6 @@ public class LEDs implements Runnable {
 				this.one.set(false);
 				this.two.set(false);
 				this.three.set(true);
-			} else if (DriverStation.getInstance().getMatchTime() >= 130) {
-				this.one.set(true);
-				this.two.set(true);
-				this.three.set(true);
 			} else if (Robot.robot.isAutonomous()) {
 				this.one.set(false);
 				this.two.set(true);

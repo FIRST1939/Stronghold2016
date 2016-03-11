@@ -3,6 +3,7 @@ package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBar;
+import org.usfirst.frc.team1939.robot.commands.auton.RockWall;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByInches;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 		this.autonomousChooser.addObject("Turn 90 Right", new TurnByDegrees(90));
 		this.autonomousChooser.addObject("Turn 90 Left", new TurnByDegrees(-90));
 		this.autonomousChooser.addObject("Low Bar", new LowBar());
+		this.autonomousChooser.addObject("Rock Wall", new RockWall());
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
 
 		SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);
