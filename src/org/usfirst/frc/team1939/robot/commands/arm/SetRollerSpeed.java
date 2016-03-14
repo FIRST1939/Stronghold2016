@@ -4,12 +4,12 @@ import org.usfirst.frc.team1939.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetArmMaxSpeed extends Command {
+public class SetRollerSpeed extends Command {
 
-	private double max;
+	private double speed;
 
-	public SetArmMaxSpeed(double max) {
-		this.max = Math.abs(max);
+	public SetRollerSpeed(double speed) {
+		this.speed = speed;
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class SetArmMaxSpeed extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.arm.pid.setOutputRange(-this.max, this.max);
+		Robot.arm.spinRoller(this.speed);
 	}
 
 	@Override

@@ -3,9 +3,9 @@ package org.usfirst.frc.team1939.robot;
 
 import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBar;
+import org.usfirst.frc.team1939.robot.commands.auton.LowBarScore;
+import org.usfirst.frc.team1939.robot.commands.auton.LowBarScoreReturn;
 import org.usfirst.frc.team1939.robot.commands.auton.RockWall;
-import org.usfirst.frc.team1939.robot.commands.drivetrain.DriveByInches;
-import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Dart;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
@@ -21,6 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
+
+	public static double width = 32;
+	public static double length = 32;
 
 	public static Arm arm = new Arm();
 	public static Dart dart = new Dart();
@@ -40,10 +43,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		this.autonomousChooser = new SendableChooser();
-		this.autonomousChooser.addObject("Drive 36", new DriveByInches(36));
-		this.autonomousChooser.addObject("Turn 90 Right", new TurnByDegrees(90));
-		this.autonomousChooser.addObject("Turn 90 Left", new TurnByDegrees(-90));
 		this.autonomousChooser.addObject("Low Bar", new LowBar());
+		this.autonomousChooser.addObject("Low Bar and Score", new LowBarScore());
+		this.autonomousChooser.addObject("Low Bar Score and Return", new LowBarScoreReturn());
 		this.autonomousChooser.addObject("Rock Wall", new RockWall());
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
 

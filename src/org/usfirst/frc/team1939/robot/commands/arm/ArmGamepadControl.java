@@ -67,11 +67,13 @@ public class ArmGamepadControl extends Command {
 		SmartDashboard.putNumber("Arm Output", moveSpeed);
 
 		// Drive roller off gamepad input
-		double speed = Robot.oi.gamepad.getRightY();
-		if (Robot.arm.hasBoulder() && speed > 0) {
-			speed = 0;
-		} else {
-			Robot.arm.spinRoller(speed);
+		if (!Robot.robot.isAutonomous()) {
+			double speed = Robot.oi.gamepad.getRightY();
+			if (Robot.arm.hasBoulder() && speed > 0) {
+				speed = 0;
+			} else {
+				Robot.arm.spinRoller(speed);
+			}
 		}
 	}
 
