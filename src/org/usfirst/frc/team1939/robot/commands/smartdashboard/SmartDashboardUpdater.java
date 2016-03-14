@@ -38,6 +38,7 @@ public class SmartDashboardUpdater extends Command {
 	@Override
 	protected void execute() {
 		try {
+			SmartDashboard.putString("Selected Auto", Robot.robot.autonomousChooser.getSelected().getClass().getName());
 			SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.pidGet());
 			SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
 			SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());

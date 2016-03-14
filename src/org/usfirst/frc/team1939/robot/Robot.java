@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	private Command autonomousCommand;
-	private SendableChooser autonomousChooser;
+	public SendableChooser autonomousChooser;
 
 	@Override
 	public void robotInit() {

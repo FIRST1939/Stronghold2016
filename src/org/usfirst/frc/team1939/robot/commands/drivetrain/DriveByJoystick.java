@@ -42,9 +42,9 @@ public class DriveByJoystick extends Command {
 			}
 		} else {
 			if (move > 0) {
-				move = map(move, 0.1, 1.0, 0.3, 0.6);
+				move = map(move, 0.1, 1.0, 0.3, 0.75);
 			} else if (move < 0) {
-				move = map(move, -1.0, -0.1, -0.6, -0.3);
+				move = map(move, -1.0, -0.1, -0.75, -0.3);
 			}
 		}
 		if (turnCorrect) {

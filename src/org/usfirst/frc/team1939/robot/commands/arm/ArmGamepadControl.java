@@ -4,6 +4,7 @@ import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmGamepadControl extends Command {
 
@@ -62,6 +63,8 @@ public class ArmGamepadControl extends Command {
 			Robot.arm.setMagnet(false);
 		}
 		Robot.arm.setOutput(moveSpeed);
+		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.pid.getSetpoint());
+		SmartDashboard.putNumber("Arm Output", moveSpeed);
 
 		// Drive roller off gamepad input
 		double speed = Robot.oi.gamepad.getRightY();
