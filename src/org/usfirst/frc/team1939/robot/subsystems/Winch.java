@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.Relay.Value;
 
 public class Winch extends CANTalonSubsystem {
 
-	private static final double P = 0;
+	public static final int UP = -3198548; // Measure this
+	public static final int DOWN = -1062503; // Measure this
+	public static final double MAX = 1.0;
+
+	private static final double P = -UP / 3.0;
 	private static final double I = 0;
 	private static final double D = 0;
 	private static final double rampRate = 12;
-
-	public static final int DOWN = 0;
-	public static final double MAX = 0.5;
 
 	private Relay spike = new Relay(RobotMap.winchRelay);
 	private boolean spikeOn;

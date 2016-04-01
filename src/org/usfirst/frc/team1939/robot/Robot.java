@@ -6,6 +6,7 @@ import org.usfirst.frc.team1939.robot.commands.auton.LowBar;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBarScore;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBarScoreReturn;
 import org.usfirst.frc.team1939.robot.commands.auton.RockWall;
+import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Dart;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
@@ -22,14 +23,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	public static double width = 32;
-	public static double length = 32;
+	public static Arm arm;
+	public static Dart dart;
+	public static Drivetrain drivetrain;
+	public static SmartDashboardSubsystem dashboard;
+	public static Winch winch;
 
-	public static Arm arm = new Arm();
-	public static Dart dart = new Dart();
-	public static Drivetrain drivetrain = new Drivetrain();
-	public static SmartDashboardSubsystem dashboard = new SmartDashboardSubsystem();
-	public static Winch winch = new Winch();
+	{
+		try {
+			arm = new Arm();
+			dart = new Dart();
+			drivetrain = new Drivetrain();
+			dashboard = new SmartDashboardSubsystem();
+			winch = new Winch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static Robot robot;
 	public static OI oi;
@@ -47,6 +57,9 @@ public class Robot extends IterativeRobot {
 		this.autonomousChooser.addObject("Low Bar and Score", new LowBarScore());
 		this.autonomousChooser.addObject("Low Bar Score and Return", new LowBarScoreReturn());
 		this.autonomousChooser.addObject("Rock Wall", new RockWall());
+		this.autonomousChooser.addObject("Turn 60", new TurnByDegrees(60));
+		this.autonomousChooser.addObject("Turn 90", new TurnByDegrees(90));
+		this.autonomousChooser.addObject("Turn 120", new TurnByDegrees(120));
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
 
 		SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);

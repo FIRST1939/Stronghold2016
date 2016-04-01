@@ -1,5 +1,9 @@
 package org.usfirst.frc.team1939.util;
 
+import org.usfirst.frc.team1939.robot.commands.auton.ExtendScaler;
+import org.usfirst.frc.team1939.robot.commands.winch.SetWinchPosition;
+import org.usfirst.frc.team1939.robot.subsystems.Winch;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -38,6 +42,9 @@ public class Gamepad extends Joystick {
 
 	public Gamepad(int port) {
 		super(port);
+		this.x.whenPressed(new ExtendScaler());
+		this.y.whenPressed(new SetWinchPosition(Winch.UP));
+		this.a.whenPressed(new SetWinchPosition(Winch.DOWN));
 	}
 
 	public double getLeftX() {

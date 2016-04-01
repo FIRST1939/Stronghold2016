@@ -8,17 +8,18 @@ import edu.wpi.first.wpilibj.CANTalon;
 
 public class Dart extends CANTalonSubsystem {
 
-	private static final double P = 0;
+	public static final int RELEASE = 0; // Measure this
+	public static final double MAX = 1.0 / 3.0;
+
+	private static final double P = RELEASE / 3.0;
 	private static final double I = 0;
 	private static final double D = 0;
 	private static final double rampRate = 12;
 
-	public static final int STEP1 = 700000;
-	public static final int DOWN = 0;
-	public static final double MAX = 0.5;
-
 	// Postive down
 	// Negative up
+
+	public boolean isReleased = false;
 
 	public Dart() {
 		super(new CANTalon(RobotMap.talonScalerDart), P, I, D, rampRate, MAX);
@@ -27,6 +28,10 @@ public class Dart extends CANTalonSubsystem {
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DartGamepadControl());
+	}
+
+	public boolean isReleased() {
+		return this.isReleased;
 	}
 
 }
