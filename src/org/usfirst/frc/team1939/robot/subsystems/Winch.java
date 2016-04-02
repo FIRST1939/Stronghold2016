@@ -5,6 +5,7 @@ import org.usfirst.frc.team1939.robot.commands.winch.WinchGamepadControl;
 import org.usfirst.frc.team1939.util.CANTalonSubsystem;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 
@@ -26,6 +27,9 @@ public class Winch extends CANTalonSubsystem {
 
 	public Winch() {
 		super(new CANTalon(RobotMap.talonScalerWinch), P, I, D, rampRate, MAX);
+		CANTalon winch2 = new CANTalon(RobotMap.talonScalerWinch2);
+		winch2.changeControlMode(TalonControlMode.Follower);
+		winch2.set(RobotMap.talonScalerWinch);
 		setSpike(true);
 	}
 

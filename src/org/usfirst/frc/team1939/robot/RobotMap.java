@@ -10,6 +10,7 @@ public class RobotMap {
 
 	public static final int talonScalerDart = 20;
 	public static final int talonScalerWinch = 14;
+	public static final int talonScalerWinch2 = 22;
 	public static final int talonArmMover = 15;
 	public static final int talonArmRoller = 21;
 

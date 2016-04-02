@@ -36,7 +36,7 @@ public class Drivetrain extends Subsystem {
 	public PIDController turnPID;
 
 	public static final double MAX_MOVE_SPEED = 0.75;
-	private static final double moveP = 1.0 / inchesToTicks(12);
+	private static final double moveP = 1.0 / inchesToTicks(24);
 	private static final double moveI = 0;
 	private static final double moveD = 0;
 	public PIDController movePID;

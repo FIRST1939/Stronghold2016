@@ -34,7 +34,7 @@ public class DriveByJoystick extends Command {
 			rotate = 0;
 		}
 
-		if (moveTurbo) {
+		if (!moveTurbo) {
 			if (move > 0) {
 				move = map(move, 0.1, 1.0, 0.3, 1.0);
 			} else if (move < 0) {
@@ -56,7 +56,7 @@ public class DriveByJoystick extends Command {
 			}
 		} else {
 			this.correcting = false;
-			if (rotateTurbo) {
+			if (!rotateTurbo) {
 				if (rotate > 0) {
 					rotate = map(rotate, 0.1, 1.0, 0.4, 1.0);
 				} else if (rotate < 0) {

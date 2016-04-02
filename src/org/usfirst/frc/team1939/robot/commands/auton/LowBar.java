@@ -10,6 +10,6 @@ public class LowBar extends CommandGroup {
 
 	public LowBar() {
 		this.addSequential(new SetArmPosition(Arm.DOWN));
-		this.addSequential(new DriveByInches(215.5));
+		this.addSequential(new DriveByInches(227.5));
 	}
 }
