@@ -5,6 +5,8 @@ import org.usfirst.frc.team1939.robot.commands.auton.DoNothing;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBar;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBarScore;
 import org.usfirst.frc.team1939.robot.commands.auton.LowBarScoreReturn;
+import org.usfirst.frc.team1939.robot.commands.auton.LowBarSpitReturn;
+import org.usfirst.frc.team1939.robot.commands.auton.LowBarSpitReturnTurn;
 import org.usfirst.frc.team1939.robot.commands.auton.Ramparts;
 import org.usfirst.frc.team1939.robot.commands.auton.RockWall;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
@@ -57,6 +59,8 @@ public class Robot extends IterativeRobot {
 		this.autonomousChooser.addObject("Low Bar", new LowBar());
 		this.autonomousChooser.addObject("Low Bar and Score", new LowBarScore());
 		this.autonomousChooser.addObject("Low Bar Score and Return", new LowBarScoreReturn());
+		this.autonomousChooser.addObject("Low Bar Spit Return", new LowBarSpitReturn());
+		this.autonomousChooser.addObject("Low Bar Spit Return Turn", new LowBarSpitReturnTurn());
 		this.autonomousChooser.addObject("Rock Wall", new RockWall());
 		this.autonomousChooser.addObject("Ramparts", new Ramparts());
 		this.autonomousChooser.addObject("Turn 60", new TurnByDegrees(60));

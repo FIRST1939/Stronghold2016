@@ -18,11 +18,6 @@ public class ExtendScaler extends CommandGroup {
 		this.addSequential(new Wait(1.0));
 		this.addSequential(new SetDartOutput(0));
 		this.addSequential(new SetWinchPosition(Winch.UP));
-		this.addParallel(new CommandGroup() {
-			{
-				addSequential(new Wait(5));
-				addSequential(new SetArmPosition(Arm.UP));
-			}
-		});
+		this.addSequential(new SetArmPosition(Arm.UP));
 	}
 }

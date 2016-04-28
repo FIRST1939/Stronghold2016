@@ -15,7 +15,7 @@ public class LowBarScore extends CommandGroup {
 		this.addSequential(new DriveByInches(117.5));
 		this.addSequential(new Wait(0.5));
 		this.addSequential(new SetRollerSpeed(-1.0));
-		this.addSequential(new Wait(3.0));
+		this.addSequential(new Wait(2.0));
 		this.addSequential(new SetRollerSpeed(0));
 	}
 }
