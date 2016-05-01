@@ -34,17 +34,17 @@ public class DriveByJoystick extends Command {
 			rotate = 0;
 		}
 
-		if (!moveTurbo) {
+		if (moveTurbo) {
 			if (move > 0) {
-				move = map(move, 0.1, 1.0, 0.3, 1.0);
+				move = map(move, 0.1, 1.0, 0.6, 1.0);
 			} else if (move < 0) {
-				move = map(move, -1.0, -0.1, -1.0, -0.3);
+				move = map(move, -1.0, -0.1, -1.0, -0.6);
 			}
 		} else {
 			if (move > 0) {
-				move = map(move, 0.1, 1.0, 0.3, 0.75);
+				move = map(move, 0.1, 1.0, 0.35, 0.8);
 			} else if (move < 0) {
-				move = map(move, -1.0, -0.1, -0.75, -0.3);
+				move = map(move, -1.0, -0.1, -0.7, -0.3);
 			}
 		}
 		if (turnCorrect) {
@@ -56,17 +56,17 @@ public class DriveByJoystick extends Command {
 			}
 		} else {
 			this.correcting = false;
-			if (!rotateTurbo) {
+			if (rotateTurbo) {
 				if (rotate > 0) {
-					rotate = map(rotate, 0.1, 1.0, 0.4, 1.0);
+					rotate = map(rotate, 0.1, 1.0, 0.5, 1.0);
 				} else if (rotate < 0) {
-					rotate = map(rotate, -1.0, -0.1, -1.0, -0.4);
+					rotate = map(rotate, -1.0, -0.1, -1.0, -0.5);
 				}
 			} else {
 				if (rotate > 0) {
-					rotate = map(rotate, 0.1, 1.0, 0.4, 0.8);
+					rotate = map(rotate, 0.1, 1.0, 0.3, 0.8);
 				} else if (rotate < 0) {
-					rotate = map(rotate, -1.0, -0.1, -0.8, -0.4);
+					rotate = map(rotate, -1.0, -0.1, -0.8, -0.3);
 				}
 			}
 		}

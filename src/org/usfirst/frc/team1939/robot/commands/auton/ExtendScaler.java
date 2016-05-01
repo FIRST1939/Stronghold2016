@@ -1,10 +1,8 @@
 package org.usfirst.frc.team1939.robot.commands.auton;
 
-import org.usfirst.frc.team1939.robot.commands.arm.SetArmPosition;
 import org.usfirst.frc.team1939.robot.commands.dart.SetDartOutput;
 import org.usfirst.frc.team1939.robot.commands.winch.DisengageRatchet;
 import org.usfirst.frc.team1939.robot.commands.winch.SetWinchPosition;
-import org.usfirst.frc.team1939.robot.subsystems.Arm;
 import org.usfirst.frc.team1939.robot.subsystems.Winch;
 import org.usfirst.frc.team1939.util.Wait;
 
@@ -18,6 +16,5 @@ public class ExtendScaler extends CommandGroup {
 		this.addSequential(new Wait(1.0));
 		this.addSequential(new SetDartOutput(0));
 		this.addSequential(new SetWinchPosition(Winch.UP));
-		this.addSequential(new SetArmPosition(Arm.UP));
 	}
 }
