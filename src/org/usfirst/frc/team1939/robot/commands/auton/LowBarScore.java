@@ -11,7 +11,7 @@ public class LowBarScore extends CommandGroup {
 	public LowBarScore() {
 		this.addSequential(new LowBar());
 		this.addSequential(new TurnByDegrees(60));
-		this.addSequential(new DriveByInches(117.5));
+		this.addSequential(new DriveByInches(140, .80));
 		this.addSequential(new Wait(0.5));
 		this.addSequential(new Spit());
 	}
