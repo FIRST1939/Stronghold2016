@@ -55,7 +55,7 @@ public class ArmGamepadControl extends Command {
 			// Stop arm if it is down and trying to move down
 			moveSpeed = 0;
 		}
-		if (Robot.arm.isDown() && moveSpeed == 0) {
+		if (Robot.arm.isDown() && moveSpeed == 0 || Robot.arm.pid.getSetpoint() == Arm.DOWN) {
 			// If arm is down and not moving, engage magnet
 			Robot.arm.setMagnet(true);
 		} else {
