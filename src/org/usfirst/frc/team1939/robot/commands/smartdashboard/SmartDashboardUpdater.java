@@ -2,12 +2,8 @@ package org.usfirst.frc.team1939.robot.commands.smartdashboard;
 
 import org.usfirst.frc.team1939.robot.Robot;
 import org.usfirst.frc.team1939.robot.commands.arm.ResetArmEncoder;
-import org.usfirst.frc.team1939.robot.commands.dart.ResetDartEncoder;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetDrivetrainEncoders;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.ResetGyro;
-import org.usfirst.frc.team1939.robot.commands.winch.DisengageRatchet;
-import org.usfirst.frc.team1939.robot.commands.winch.EngageRatchet;
-import org.usfirst.frc.team1939.robot.commands.winch.ResetWinchEncoder;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,8 +18,7 @@ public class SmartDashboardUpdater extends Command {
 	@Override
 	protected void initialize() {
 		SmartDashboard.putData(Scheduler.getInstance());
-		Command[] commands = { new ResetGyro(), new ResetDrivetrainEncoders(), new ResetArmEncoder(),
-				new ResetWinchEncoder(), new ResetDartEncoder(), new EngageRatchet(), new DisengageRatchet() };
+		Command[] commands = { new ResetGyro(), new ResetDrivetrainEncoders(), new ResetArmEncoder() };
 		for (Command c : commands) {
 			SmartDashboard.putData(c);
 		}
@@ -42,19 +37,14 @@ public class SmartDashboardUpdater extends Command {
 			SmartDashboard.putNumber("Gyro", Robot.drivetrain.navx.pidGet());
 			SmartDashboard.putNumber("Drivetrain Distance", Robot.drivetrain.getPosition());
 			SmartDashboard.putNumber("Arm Encoder", Robot.arm.getTicks());
-			SmartDashboard.putNumber("Dart Encoder", Robot.dart.getTicks());
-			SmartDashboard.putNumber("Winch Encoder", Robot.winch.getTicks());
 			SmartDashboard.putBoolean("Has Boulder", Robot.arm.hasBoulder());
 			SmartDashboard.putBoolean("Arm Down", Robot.arm.isDown());
 			SmartDashboard.putBoolean("Magnet Engaged", Robot.arm.isMagnetOn());
-			SmartDashboard.putBoolean("Ratchet Relay", Robot.winch.isSpikeOn());
 
 			if (SmartDashboard.getBoolean("Reset Everything")) {
 				Robot.drivetrain.resetEncoders();
 				Robot.drivetrain.navx.reset();
 				Robot.arm.resetEncoder();
-				Robot.winch.resetEncoder();
-				Robot.dart.resetEncoder();
 				SmartDashboard.putBoolean("Reset Everything", false);
 			}
 		} catch (Exception e) {

@@ -12,11 +12,8 @@ import org.usfirst.frc.team1939.robot.commands.auton.RockWall;
 import org.usfirst.frc.team1939.robot.commands.auton.RockWallLowGoal;
 import org.usfirst.frc.team1939.robot.commands.drivetrain.TurnByDegrees;
 import org.usfirst.frc.team1939.robot.subsystems.Arm;
-import org.usfirst.frc.team1939.robot.subsystems.Dart;
 import org.usfirst.frc.team1939.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team1939.robot.subsystems.SmartDashboardSubsystem;
-import org.usfirst.frc.team1939.robot.subsystems.Winch;
-import org.usfirst.frc.team1939.util.LEDs;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,18 +25,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static Arm arm;
-	public static Dart dart;
 	public static Drivetrain drivetrain;
 	public static SmartDashboardSubsystem dashboard;
-	public static Winch winch;
 
 	{
 		try {
 			arm = new Arm();
-			dart = new Dart();
 			drivetrain = new Drivetrain();
 			dashboard = new SmartDashboardSubsystem();
-			winch = new Winch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,9 +64,6 @@ public class Robot extends IterativeRobot {
 		this.autonomousChooser.addDefault("Do Nothing", new DoNothing());
 
 		SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);
-
-		Thread leds = new Thread(new LEDs());
-		leds.start();
 
 		System.out.println("\n==============Intialized Stronghold2016============\n");
 	}
