@@ -24,6 +24,7 @@ public class ArmGamepadControl extends Command {
 	protected void execute() {
 		if (Robot.arm.isDown()) {
 			Robot.arm.setEncoderPosition(Arm.DOWN);
+			Robot.arm.pid.setOutputRange(-Arm.MAX, Arm.MAX);
 		}
 
 		double moveSpeed = 0;
@@ -39,9 +40,11 @@ public class ArmGamepadControl extends Command {
 
 			if (!(button && trigger)) {
 				if (button) {
+					Robot.arm.pid.setOutputRange(-Arm.MAX, Arm.MAX);
 					Robot.arm.pid.setSetpoint(Arm.UP);
 				}
 				if (trigger) {
+					Robot.arm.pid.setOutputRange(-0.5, 0.5);
 					Robot.arm.pid.setSetpoint(Arm.DOWN);
 				}
 			}
@@ -71,9 +74,8 @@ public class ArmGamepadControl extends Command {
 			double speed = Robot.oi.gamepad.getRightY();
 			if (Robot.arm.hasBoulder() && speed > 0) {
 				speed = 0;
-			} else {
-				Robot.arm.spinRoller(speed);
 			}
+			Robot.arm.spinRoller(speed);
 		}
 	}
 
