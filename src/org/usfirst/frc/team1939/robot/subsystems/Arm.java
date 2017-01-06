@@ -4,7 +4,8 @@ import org.usfirst.frc.team1939.robot.RobotMap;
 import org.usfirst.frc.team1939.robot.commands.arm.ArmGamepadControl;
 import org.usfirst.frc.team1939.util.CANTalonSubsystem;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
